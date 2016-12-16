@@ -1,0 +1,33 @@
+#this base circos config file
+<image>
+<<include etc/image.conf>>
+</image>
+<<include etc/colors_fonts_patterns.conf>>
+<<include etc/housekeeping.conf>>
+<<include ideogram.conf>>
+<<include ticks.conf>>
+
+karyotype = data/karyotype/{{chrom_name}}
+
+chromosomes_units = 1000000
+chromosomes_display_default = yes
+
+<plots>
+show = yes
+type = {{plot_type}}
+stroke_thickness = 1
+#stroke_color = black
+{%block plot%}
+#your plot
+{%end block%}
+</plots>
+{% for each_track in tracks %}
+ min = {{each_track.min}}
+ max = {{each_track.max}}
+ r1 = {{each_track.r1}}
+ r0 = {{each_track.r0}}
+ color = {{each_track.color}}
+ file = {{each_track.file}}
+ scale_log_base = {{each_track.scale_log_base}}
+ {%end for%}
+ 

@@ -1,7 +1,0 @@
-[circos_plot]
-type = heatmap
-paired = True
-track_num = 1
-karyotype = karyotype.sorghum.txt
-test_data1 = snp_data_G1_4.txt
-test_data2 = snp_data_K1_4.txt

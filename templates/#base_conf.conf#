@@ -1,0 +1,23 @@
+#this base circos config file
+<image>
+<<include etc/image.conf>>
+</image>
+<<include etc/colors_fonts_patterns.conf>>
+<<include etc/housekeeping.conf>>
+<<include ideogram.conf>>
+<<include ticks.conf>>
+
+karyotype = data/karyotype/{{chrom_name}}
+
+chromosomes_units = 1000000
+chromosomes_display_default = yes
+
+<plots>
+show = yes
+type = {{plot_type}}
+stroke_thickness = 1
+#stroke_color = black
+{%block plot%}
+#your plot
+{%end block%}
+</plots>

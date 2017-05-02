@@ -1,0 +1,4 @@
+# this is a file to define some ignore files for git
+*.xml
+*~
+.idea/

@@ -4,7 +4,9 @@ this a script to tidy & quickly generate circos plot
 version == 0.1 plot type:heatmap hist scatter
 '''
 import os
+import sys
 import json
+import subprocess
 import pandas as pd
 from . import circos_env,track_r
 
@@ -19,8 +21,12 @@ class circos(object):
         range_list = []
 
         for each in self.data:
-            df = pd.read_table(each,header=None,sep=' ')
-            range_list.extend([df[3].min(),df[3].max()])
+            try:
+                df = pd.read_table(each,header=None,sep=' ')
+                range_list.extend([df[3].min(),df[3].max()])
+            except IOError,e:
+                print 'not find file:%s' %(each)
+                sys.exit(1)
 
         return range_list
 
@@ -29,11 +35,14 @@ class circos(object):
         if track_r.get(plot_key):
             return track_r[plot_key]
 
+    def run_circos(self,path,circos_file):
+        subprocess.call('cp -r circos_configures/* {path}'.format(path=path),shell=True)
+        subprocess.call('circos --conf {circos_conf}'.format(circos_conf=os.path.join(path,circos_file)),shell=True)
 
 class heatmap(circos):
 
     def __init__(self,karyotype,data,color,scale_log_base):
-        circos_plot.__init__(self,karyotype,data)
+        circos.__init__(self,karyotype,data)
         self.color = color[:]
         self.scale_log_base = scale_log_base[:]
 
@@ -58,10 +67,12 @@ class heatmap(circos):
         with open(os.path.join(conf_path,'heatmap_conf.conf'),'w') as f:
             f.write(template.render(render_dict))
 
+        print 'heatmap conf file done!'
+
 class hist(circos):
 
     def __init__(self,karyotype,data,fill_color):
-        circos_plot.__init__(self,karyotype,data)
+        circos.__init__(self,karyotype,data)
         self.fill_color = fill_color[:]
         self.scale_log_base = scale_log_base[:]
 
@@ -72,13 +83,13 @@ class hist(circos):
         render_plots = []
         track_range = self.create_track_r(len(self.data))
         value_range = self._get_data_range()
-            j=0
-            for i in range(len(self.data)):
-                tmp_dict = dict(file=self.data[i],min=value_range[j],
-                                max=value_range[j+1],r0=track_range[j],r1=track_range[j+1],
-                                fill_color=self.fill_color[i],)
-                j += 2
-                render_plots.append(tmp_dict)
+        j=0
+        for i in range(len(self.data)):
+            tmp_dict = dict(file=self.data[i],min=value_range[j],
+                            max=value_range[j+1],r0=track_range[j],r1=track_range[j+1],
+                            fill_color=self.fill_color[i],)
+            j += 2
+            render_plots.append(tmp_dict)
 
         template = circos_env.get_template('circos_hist.conf')
 
@@ -88,10 +99,12 @@ class hist(circos):
         with open(os.path.join(conf_path,'hist_conf.conf'),'w') as f:
             f.write(template.render(render_dict))
 
+        print 'hist conf file done!'
+
 class scatter(circos):
 
     def __init__(self,karyotype,data,color,glyph,glyph_size):
-        circos_plot.__init__(self,karyotype,data)
+        circos.__init__(self,karyotype,data)
         self.color = color[:]
         self.glyph = glyph[:]
         self.glyph_size = glyph_size[:]
@@ -120,3 +133,5 @@ class scatter(circos):
 
         with open(os.path.join(conf_path,'scatter_conf.conf'),'w') as f:
             f.write(template.render(render_dict))
+
+        print 'scatter conf file done!'

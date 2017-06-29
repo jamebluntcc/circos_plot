@@ -1,11 +1,4 @@
-<<<<<<< HEAD
-# this is a file to define some ignore files for git
-*.xml
-*~
-.idea/
-=======
 #ignore idea dir
 .idea/*
 #pyc file
 *.pyc
->>>>>>> dev

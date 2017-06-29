@@ -1,0 +1,9 @@
+{
+  "type":"heatmap",
+  "karyotype":"chicken_1.txt",
+  "data":["data/DMR_Methy_chrom_data.txt","data/DMR_Methy_gene_data.txt"],
+  "other":{
+    "scale_log_base":["1","0.5"],
+    "color":["brbg-3-div-rev","spectral-3-div-rev"]
+  }
+}

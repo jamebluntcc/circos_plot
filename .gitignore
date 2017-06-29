@@ -1,0 +1,4 @@
+#ignore idea dir
+.idea/*
+#pyc file
+*.pyc

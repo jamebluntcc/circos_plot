@@ -36,8 +36,11 @@ class circos(object):
             return track_r[plot_key]
 
     def run_circos(self,path,circos_file):
+        rm_sets = ['bands.conf','ideagram.conf','ticks.conf']
         subprocess.call('cp -r circos_configures/* {path}'.format(path=path),shell=True)
         subprocess.call('circos --conf {circos_conf}'.format(circos_conf=os.path.join(path,circos_file)),shell=True)
+        for rm_file in rm_sets:
+            subprocess.call('rm {rm_file}'.format(rm_file=rm_file),shell=True)
 
 class heatmap(circos):
 

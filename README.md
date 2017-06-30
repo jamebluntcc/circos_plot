@@ -12,11 +12,11 @@ python manager.py output_path --axes --pairwise hs1 hs2 150u
 * pairwise: 可选参数,circos 是否有开口,chr1 和 chr2 之间画一个默认 100u 的开口;
 
 ## example
-heatmap
-![image](./demo/circos_heatmap.png)
+**heatmap**
+![image](./demo/heatmap_circos.png)
 
-hist
+**hist**
 ![image](./demo/hist_circos.png)
 
-scatter
+**scatter**
 ![image](./demo/scatter_circos.png)

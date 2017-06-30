@@ -10,6 +10,13 @@ import subprocess
 import pandas as pd
 from . import circos_env,track_r
 
+def render_ideogram(conf_path,gene1,gene2,spacing='100u'):
+    template = circos_env.get_template('ideogram.conf')
+    render_dict = dict(pairwise=True,gene1=gene1,gene2=gene2,spacing=spacing)
+    with open(os.path.join(conf_path,'ideogram.conf'),'w') as f:
+        f.write(template.render(render_dict))
+    print 'ideogram conf file done!'
+
 class circos(object):
 
     def __init__(self,karyotype,data):

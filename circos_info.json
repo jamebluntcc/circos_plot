@@ -1,9 +1,9 @@
 {
   "type":"heatmap",
-  "karyotype":"chicken_1.txt",
-  "data":["data/DMR_Methy_chrom_data.txt","data/DMR_Methy_gene_data.txt"],
+  "karyotype":"karyotype.pig.txt",
+  "data":["AY_CG.txt","BY_CG.txt","BY_CG.txt","AY_CHH.txt","BY_CHH.txt","AY_CHG.txt"],
   "other":{
-    "scale_log_base":["1","0.5"],
-    "color":["brbg-3-div-rev","spectral-3-div-rev"]
+    "scale_log_base":["2.0","2.0","0.25","0.25","0.25","0.25"],
+    "color":["spectral-3-div-rev","spectral-3-div-rev","spectral-3-div-rev","spectral-3-div-rev","spectral-3-div-rev","spectral-3-div-rev"]
   }
 }

@@ -4,11 +4,12 @@ this a script to tidy & quickly generate circos plot
 version == 1.0 plot type:heatmap hist scatter
 '''
 import os
+import sys
 import json
 import argparse
 
 from main import circos_data_dir
-from main.circos_plot import heatmap,hist,scatter
+from main.circos_plot import heatmap,hist,scatter,render_ideogram
 
 '''
 this is main python script to generate circos plot conf file
@@ -16,13 +17,26 @@ this is main python script to generate circos plot conf file
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='create circos plot')
     parser.add_argument('output_path',help='a dir where you want to generate circos plot')
-    parser.add_argument('--axes','-axes',action='store_true',help='whether show axes to plot default False')
+    parser.add_argument('--axes','-axes',action='store_true',default=False,help='whether show axes to plot default False')
+    parser.add_argument('--pairwise','-pairwise',nargs='*',help='whether circos plot have a pairwise')
     args = parser.parse_args()
 
     with open('circos_info.json','r') as f:
         conf_info = json.load(f)
 
     conf_info['data'] = [os.path.join(circos_data_dir,each) for each in conf_info['data']]
+
+    if args.pairwise:
+        if len(args.pairwise) == 2:
+            (gene1,gene2) = args.pairwise
+            render_ideogram(args.output_path,gene1,gene2)
+        elif len(args.pairwise) == 3:
+            (gene1,gene2,spacing) = args.pairwise
+            render_ideogram(args.output_path,gene1,gene2,spacing)
+        else:
+            print 'pairwise params Error!\nyour params seems: like gene1 gene2 spacing'
+            sys.exit(1)
+
 
     if conf_info['type'] == 'heatmap':
         circos_heatmap = heatmap(conf_info['karyotype'],

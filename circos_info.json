@@ -1,5 +1,5 @@
 {
-  "type":"heatmap",
+  "type":"",
   "karyotype":"karyotype.pig.txt",
   "data":["AY_CG.txt","BY_CG.txt","BY_CG.txt","AY_CHH.txt","BY_CHH.txt","AY_CHG.txt"],
   "other":{

@@ -4,7 +4,7 @@ circos plot 是一个用于快速生成 [circos](http://circos.ca/) 的 python �
 ## run and params
 首先在 circos_info.json 下填写生成 circos 的基本参数,然后再运行:
 ```sh
-python manager.py output_path --axes --pairwise hs1 hs2 150u
+python main.py output_path --axes --pairwise hs1 hs2 150u
 ```
 参数:
 * output_path: 生成 circos plot 的目录;
